@@ -1,4 +1,4 @@
-# ports Video Analyzer
+# Sports Video Analyzer
 
 A Python-based computer vision application that analyzes sports videos using YOLO and OpenCV. The application provides a Streamlit web interface for uploading match clips, detecting objects, viewing annotated video output, and exploring detection statistics.
 
