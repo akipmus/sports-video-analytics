@@ -1,42 +1,116 @@
-# Sports Video Analytics
+# ports Video Analyzer
 
-A small Streamlit application that runs YOLO object detection on a sports video and displays an annotated MP4.
+A Python-based computer vision application that analyzes sports videos using YOLO and OpenCV. The application provides a Streamlit web interface for uploading match clips, detecting objects, viewing annotated video output, and exploring detection statistics.
+
+## Features
+
+- Upload sports videos through a web interface.
+- Detect objects in video frames using a pretrained YOLO model.
+- Generate annotated videos with bounding boxes and class labels.
+- Display detection statistics and object counts.
+- Preview and download the processed video.
+
+## Tech Stack
+
+- **Python** — application logic
+- **Ultralytics YOLO** — object detection
+- **OpenCV** — video processing
+- **Streamlit** — web interface
+
+## Project Structure
+
+```text
+sports-video-analytics/
+├── app.py
+├── detector.py
+├── test_detector.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── uploads/
+└── outputs/
+```
+
+Generated videos, local virtual environments, and downloaded model weights should not be committed unless intentionally required.
 
 ## Requirements
 
-- Python 3.10 or newer
-- The dependencies in `requirements.txt`
+- Python 3.10 or a compatible version supported by the installed dependencies
+- Internet connection for initial dependency and model downloads
+- A supported video file, such as MP4
 
-## Setup
+## Installation
 
-From the project directory, create and activate a virtual environment, then install the dependencies:
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/akipmus/sports-video-analytics.git
+cd sports-video-analytics
+```
+
+### 2. Create a virtual environment
+
+Windows PowerShell:
 
 ```powershell
 python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+.\.venv\Scripts\Activate.ps1
 ```
 
-## Run the web app
+### 3. Install dependencies
 
 ```powershell
-streamlit run app.py
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Open the local URL printed by Streamlit. Upload an MP4, MOV, AVI, or MKV video, or put a sample video at `uploads/match.mp4` and select the included sample. Click **Run detection** to analyze the video. The first run downloads the YOLOv8n model weights automatically. The app shows the annotated video and detection counts, and lets you download the result.
+If necessary, install the main dependencies directly:
 
-The annotated output is also saved in `outputs/`.
+```powershell
+pip install streamlit ultralytics opencv-python
+```
 
-## Run the detector from the command line
+### 4. Run the application
 
-Place a video at `uploads/match.mp4`, then run:
+```powershell
+python -m streamlit run app.py
+```
+
+Open the local URL displayed in the terminal, usually `http://localhost:8501`.
+
+## Usage
+
+1. Launch the Streamlit application.
+2. Upload a sports video.
+3. Select the object detection action.
+4. Review the annotated video and detection statistics.
+5. Download the processed video if the download option is available.
+
+## Testing
+
+Run the detector test script:
 
 ```powershell
 python test_detector.py
 ```
 
-This writes `outputs/match_annotated.mp4` and prints the number of processed frames and detections. `detected_objects` counts each detected object in each frame, so an object visible across multiple frames is counted multiple times.
+Use a short sample video first to verify that the detection pipeline and output generation work correctly.
 
-## GitHub and video files
+## Current Limitations
 
-Uploaded videos, generated outputs, the virtual environment, and downloaded model weights are local files and should not be committed. Add your own sample video to `uploads/match.mp4` after cloning the repository.
+- Detection performance depends on video length, resolution, hardware, and model configuration.
+- Object detections counted across frames do not represent unique players.
+- A pretrained general-purpose model may miss small or distant objects, including a football.
+- Detection results are not equivalent to verified match events such as goals or assists.
+
+## Future Improvements
+
+- Player tracking and unique-player counting
+- Football-specific detection and evaluation
+- Team identification
+- Processing-time and performance benchmarks
+- Improved visualization of match statistics
+
+## Author
+
+Developed as a computer vision portfolio project exploring object detection and sports video analysis.
